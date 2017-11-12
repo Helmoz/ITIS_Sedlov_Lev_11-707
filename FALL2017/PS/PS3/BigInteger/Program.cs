@@ -402,23 +402,86 @@ namespace BigInteger
 			return sb.ToString().TrimStart(' ');
 		}
 
+		public static BigInteger operator *(BigInteger first, BigInteger second)
+		{
 
-	}
+			var output = new BigInteger();
+			if (AbsCompare(first, second) == -1)
+			{
+				var temp = second;
+				second = first;
+				first = temp;
+			}
+
+			for (int i = 0; i < second._digits.Count; i++)
+				multuADD(output, first * second._digits[i], i);
+			var lastIndex = output._digits.Count;
+			while (lastIndex != 0 && output._digits[--lastIndex] == 0) ;
+			output._digits.RemoveRange(lastIndex + 1, output._digits.Count - lastIndex - 1);
+			output._sign = first._sign != second._sign;
+			return output;
+		}
+
+		private static void multuADD(BigInteger output, BigInteger longNumber, int index)
+		{
+
+			var isCarry = false;
+			for (int i = 0; i < longNumber._digits.Count; i++)
+			{
+				if (output._digits.Count == i + index) output._digits.Add(0);
+				var add = output._digits[i + index] + longNumber._digits[i] + (isCarry ? 1 : 0);
+
+				isCarry = (add >> 8) > 0;
+				output._digits[i + index] = (byte)add;
+
+			}
+			var carryIndex = longNumber._digits.Count + index;
+			while (isCarry)
+			{
+				if (output._digits.Count > carryIndex)
+				{
+					output._digits[carryIndex] += 1;
+					if (output._digits[carryIndex] != 0) isCarry = false;
+					carryIndex++;
+				}
+				else
+				{
+					output._digits.Add(1);
+					isCarry = false;
+				}
+			}
+
+		}
+
+
+		public static BigInteger Factorial(BigInteger number)
+		{
+			var result = new BigInteger(number._digits);
+
+			var mult = new BigInteger(number._digits);
+
+			mult -= new BigInteger(new byte[] { 1 });
+
+			while (mult > new BigInteger(new byte[] { 0 }))
+			{
+				result *= mult;
+				mult -= new BigInteger(new byte[] { 1 });
+			}
+			return result;
+		}
+
+
+
+    }
 
 	class Program
 	{
 		static void Main()
 		{
 		
-			BigInteger a = new BigInteger("213222546498456456464567745645656456456456456789671231234564677662945945945934593216166467765646487464147987");
-
-			Console.WriteLine(a);
-
-			Console.WriteLine(BigInteger.ConverToBinary(a));
-
-			Console.WriteLine(BigInteger.ConverToOct(a));
-
-			Console.WriteLine(BigInteger.ConverToHex(a));
+			BigInteger a = new BigInteger("1000");
+			Console.WriteLine(BigInteger.Factorial(a));
+			//Console.WriteLine(BigInteger.Factorial(BigInteger.Factorial(a)));
 
 		}
 	}
