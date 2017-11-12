@@ -8,12 +8,10 @@ namespace detN
 		{
 			double[,] matrix =
 			{
-				{-5, -7, -2, 2, -2, 16 },
-				{0, 0, 4, 0, -5, 0 },
-				{2, 0, -2, 0, 2, 0},
-				{6, 4, 6, -1, 15, -5},
-				{5, -4, 10, 1, 14, 6},
-				{3, 0, -2, 0, 3, 0}
+				{1, -1, 1, -2 },
+				{1, 3, -1, 3},
+				{-1, -1, 4, 3},
+				{-3, 0, -8, -13},
 			};
 
 			double det = Calculate(matrix);
@@ -32,15 +30,15 @@ namespace detN
 			int order = matrix.GetLength(0);
 			double[,] minor = new double[order - 1, order - 1];
 			int x = 0, y;
-			for (int l = 0; l < order; l++, x++)
+			for (int k = 0; k < order; k++, x++)
 			{
-				if (l != i)
+				if (k != i)
 				{
 					y = 0;
-					for (int n = 0; n < order; n++)
-						if (n != j)
+					for (int l = 0; l < order; l++)
+						if (l != j)
 						{
-							minor[x, y] = matrix[l, n];
+							minor[x, y] = matrix[k, l];
 							y++;
 						}
 				}
