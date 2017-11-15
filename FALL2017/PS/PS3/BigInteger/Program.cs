@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
 using System.Text;
 using System.Diagnostics;
 
@@ -12,23 +10,7 @@ namespace BigInteger
 		private bool _sign;
 
 		private readonly List<byte> _digits =  new List<byte>();
-
-        #region Сonstants
-
-        private static BigInteger zero = new BigInteger(new byte[] { 0 });
-
-        private static BigInteger one = new BigInteger(new byte[] { 1 });
-
-        private static BigInteger two = new BigInteger(new byte[] { 2 });
-
-        private static BigInteger eight = new BigInteger(new byte[] { 8 });
-
-        private static BigInteger ten = new BigInteger(new byte[] { 10 });
-
-        private static BigInteger sixteen = new BigInteger(new byte[] { 16 });
-
-        #endregion
-
+		
         #region Constructors
 
         public BigInteger(string s)
@@ -138,7 +120,7 @@ namespace BigInteger
                 carryIndex++;
             }
             var lastIndex = sum._digits.Count;
-            while (lastIndex != 0 && sum._digits[--lastIndex] == 0) ;
+			while (lastIndex != 0 && sum._digits[--lastIndex] == 0) ;
             sum._digits.RemoveRange(lastIndex + 1, sum._digits.Count - lastIndex - 1);
 
             return sum;
@@ -396,11 +378,10 @@ namespace BigInteger
             }
             int counter = 0;
             var forOut = new BigInteger(_digits);
-            var ten = new BigInteger(new byte[] { 10 });
             while (forOut._digits.Count > 1 || forOut._digits[0] > 9)
             {
-                var div = forOut / ten;
-                var mod = forOut % ten;
+                var div = forOut / 10;
+                var mod = forOut % 10;
                 forOut = div;
                 sb.Insert(add, (char)('0' + mod._digits[0]));
                 counter++;
@@ -416,14 +397,12 @@ namespace BigInteger
 
         public static string ConverToBinary(BigInteger number)
         {
-            BigInteger residue = new BigInteger();
-            var counter = 0;
+			var counter = 0;
             var sb = new StringBuilder();
-            while (number > zero)
+            while (number > 0)
             {
-                residue = number % two;
-                number = number / two;
-                sb.Insert(0, residue);
+				sb.Insert(0, number % 2);
+				number = number / 2;
                 counter++;
                 if (counter == 4)
                 {
@@ -433,20 +412,17 @@ namespace BigInteger
             }
             for (int i = 0; i < 4 - counter; i++)
                 sb.Insert(0, "0");
-
             return sb.ToString().TrimStart(' ');
         }
 
         public static string ConverToOct(BigInteger number)
         {
-            BigInteger residue = new BigInteger();
             var counter = 0;
             var sb = new StringBuilder();
-            while (number > zero)
+            while (number > 0)
             {
-                residue = number % eight;
-                number = number / eight;
-                sb.Insert(0, residue);
+				sb.Insert(0, number % 8); 
+                number = number / 8;
                 counter++;
                 if (counter == 3)
                 {
@@ -459,14 +435,13 @@ namespace BigInteger
 
         public static string ConverToHex(BigInteger number)
         {
-            BigInteger residue = new BigInteger();
-            var counter = 0;
+			var counter = 0;
             var sb = new StringBuilder();
-            while (number > zero)
+            while (number > 0)
             {
-                residue = number % sixteen;
-                number = number / sixteen;
-                if (residue >= ten)
+                var residue = number % 16;
+                number = number / 16;
+                if (residue >= 10)
                     sb.Insert(0, (char)(residue._digits[0] + 55));
                 else
                     sb.Insert(0, residue);
@@ -480,36 +455,41 @@ namespace BigInteger
             return sb.ToString().TrimStart(' ');
         }
 
-        #endregion
-        
+		#endregion
+
+		public static implicit operator BigInteger(int value)
+		{
+			return new BigInteger(value.ToString());
+		}
+
+		public static implicit operator BigInteger(string value)
+		{
+			return new BigInteger(value);
+		}
+
 		public static BigInteger Factorial(BigInteger number, out double time)
 		{
             var sw = new Stopwatch();
-            
-            var result = new BigInteger(number._digits);
-
-			var mult = new BigInteger(number._digits) - one;
-
-            sw.Start();
-
-            while (mult > zero)
-			{
-				result *= mult;
-				mult -= one;
-			}
-
-            sw.Stop();
-            time = sw.ElapsedMilliseconds;
-            return result;
+			BigInteger result = 1;
+			
+			sw.Start();
+			for (int i = 2; i <= number; ++i)
+				result *= i;
+			sw.Stop();
+			
+			time = sw.ElapsedMilliseconds;
+			return result;
+			
 		}
+		
         public static BigInteger FactTree(BigInteger number, out double time)
         {
             time = 0;
-            if (number < zero)
-                return zero;
+            if (number < 0)
+                return 0;
             var sw = new Stopwatch();
             sw.Start();
-            var result = ProdTree(two, number);
+            var result = ProdTree(2, number);
             sw.Stop();
             time = sw.ElapsedMilliseconds;
             return result;
@@ -517,29 +497,23 @@ namespace BigInteger
         public static BigInteger ProdTree(BigInteger left, BigInteger right)
         {
             if (left > right)
-                return one;
+                return 1;
             if (left == right)
                 return left;
-            if (right - left == one)
+            if (right - left == 1)
                 return left * right;
-            BigInteger m = (left + right) / two;
-            return ProdTree(left, m) * ProdTree(m+one, right);
+            BigInteger m = (left + right) / 2;
+            return ProdTree(left, m) * ProdTree(m+1, right);
         }
     }
 
 	class Program
 	{
+		
 		static void Main()
 		{
-			BigInteger a = new BigInteger("1000");
-            //var result = BigInteger.FactTree(a, out double time);
-            //Console.WriteLine($"{result}\n{time}");
-            var result2 = BigInteger.Factorial(a, out double time2);
-            Console.WriteLine($"{result2}\n{time2}");
-            //Console.WriteLine(BigInteger.ConverToBinary(a));
-            //Console.WriteLine(BigInteger.ConverToOct(a));
-            //Console.WriteLine(BigInteger.ConverToHex(a));
-
+			BigInteger a = "1232365734534536";
+			Console.WriteLine(a);
         }
 	}
 }
