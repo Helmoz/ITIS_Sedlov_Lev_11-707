@@ -5,11 +5,11 @@ using System.Diagnostics;
 
 namespace BigInteger
 {
-	public class BigInteger
-	{
-		private bool _sign;
+    public class BigInteger
+    {
+        private bool _sign;
 
-		private readonly List<byte> _digits =  new List<byte>();
+        private readonly List<byte> _digits =  new List<byte>();
 		
         #region Constructors
 
@@ -115,12 +115,13 @@ namespace BigInteger
             var carryIndex = second._digits.Count;
             while (isCarry)
             {
-                if (sum._digits[carryIndex] != 0) isCarry = false;
+                if (sum._digits[carryIndex] != 0)
+					isCarry = false;
                 sum._digits[carryIndex] -= 1;
                 carryIndex++;
             }
             var lastIndex = sum._digits.Count;
-			while (lastIndex != 0 && sum._digits[--lastIndex] == 0) ;
+			while (lastIndex != 0 && sum._digits[--lastIndex] == 0);
             sum._digits.RemoveRange(lastIndex + 1, sum._digits.Count - lastIndex - 1);
 
             return sum;
@@ -177,7 +178,7 @@ namespace BigInteger
             for (int i = 0; i < second._digits.Count; i++)
                 MultiplicationAdd(result, first * second._digits[i], i);
             var lastIndex = result._digits.Count;
-            while (lastIndex != 0 && result._digits[--lastIndex] == 0) ;
+            while (lastIndex != 0 && result._digits[--lastIndex] == 0);
             result._digits.RemoveRange(lastIndex + 1, result._digits.Count - lastIndex - 1);
             result._sign = first._sign != second._sign;
             return result;
@@ -257,7 +258,7 @@ namespace BigInteger
 
 
 			var lastIndex = result._digits.Count;
-			while (lastIndex != 0 && result._digits[--lastIndex] == 0) ;
+			while (lastIndex != 0 && result._digits[--lastIndex] == 0);
 			result._digits.RemoveRange(lastIndex + 1, result._digits.Count - lastIndex - 1);
 			result._sign = dividend._sign != divider._sign;
 			return new Tuple<BigInteger, BigInteger>(result, residue);
@@ -457,19 +458,37 @@ namespace BigInteger
 
 		#endregion
 
-		public static implicit operator BigInteger(int value)
-		{
-			return new BigInteger(value.ToString());
-		}
+		#region Implicit operators
 
-		public static implicit operator BigInteger(string value)
-		{
-			return new BigInteger(value);
-		}
+		public static implicit operator BigInteger(int value)
+	    {
+		    return new BigInteger(value.ToString());
+	    }
+	    public static implicit operator BigInteger(uint value)
+	    {
+		    return new BigInteger(value.ToString());
+	    }
+
+	    public static implicit operator BigInteger(long value)
+	    {
+		    return new BigInteger(value.ToString());
+	    }
+	    public static implicit operator BigInteger(ulong value)
+	    {
+		    return new BigInteger(value.ToString());
+	    }
+
+	    public static implicit operator BigInteger(string value)
+	    {
+		    return new BigInteger(value);
+	    }
+
+		#endregion 
 
 		public static BigInteger Factorial(BigInteger number, out double time)
 		{
             var sw = new Stopwatch();
+
 			BigInteger result = 1;
 			
 			sw.Start();
@@ -478,8 +497,7 @@ namespace BigInteger
 			sw.Stop();
 			
 			time = sw.ElapsedMilliseconds;
-			return result;
-			
+			return result;			
 		}
 		
         public static BigInteger FactTree(BigInteger number, out double time)
@@ -505,15 +523,27 @@ namespace BigInteger
             BigInteger m = (left + right) / 2;
             return ProdTree(left, m) * ProdTree(m+1, right);
         }
+
+        public static BigInteger BinaryPower(BigInteger number, BigInteger pow)
+        {
+            BigInteger result = 1;
+            while (pow != 0)
+            {
+                if (pow % 2 == 1)
+                    result *= number;
+                number *= number;
+                pow /= 2;
+            }
+            return result;
+        }
     }
 
 	class Program
-	{
-		
+	{		
 		static void Main()
 		{
-			BigInteger a = "1232365734534536";
-			Console.WriteLine(a);
+            Console.WriteLine(BigInteger.BinaryPower(3,4));        
         }
-	}
+
+    }
 }
