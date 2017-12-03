@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Diagnostics;
 
 namespace BigInteger
 {
     public class BigInteger
     {
-        private bool _sign;
+		private bool _sign;
 
         private readonly List<byte> _digits =  new List<byte>();
 		
@@ -29,7 +28,7 @@ namespace BigInteger
 			
 			for (int i = add; i < s.Length; i++)
 			{
-				output *= 10;
+				output *= new BigInteger(new List<byte> { 10 });
 				output += new BigInteger(new List<byte> { (byte)(s[i] - '0') });
 			}
 			
@@ -37,13 +36,13 @@ namespace BigInteger
 
 			_sign = check;
 		}
-		
-		public BigInteger(IEnumerable<byte> bytes)
+
+		public BigInteger(List<byte> bytes)
 		{
 			_digits.AddRange(bytes);
 		}
 
-		public BigInteger(IEnumerable<byte> bytes, bool sign)
+		public BigInteger(List<byte> bytes, bool sign)
 		{
 			_digits.AddRange(bytes);
 			_sign = sign;
@@ -121,7 +120,7 @@ namespace BigInteger
                 carryIndex++;
             }
             var lastIndex = sum._digits.Count;
-			while (lastIndex != 0 && sum._digits[--lastIndex] == 0);
+			while (lastIndex != 0 && sum._digits[--lastIndex] == 0){}
             sum._digits.RemoveRange(lastIndex + 1, sum._digits.Count - lastIndex - 1);
 
             return sum;
@@ -178,7 +177,7 @@ namespace BigInteger
             for (int i = 0; i < second._digits.Count; i++)
                 MultiplicationAdd(result, first * second._digits[i], i);
             var lastIndex = result._digits.Count;
-            while (lastIndex != 0 && result._digits[--lastIndex] == 0);
+            while (lastIndex != 0 && result._digits[--lastIndex] == 0){}
             result._digits.RemoveRange(lastIndex + 1, result._digits.Count - lastIndex - 1);
             result._sign = first._sign != second._sign;
             return result;
@@ -186,11 +185,11 @@ namespace BigInteger
 
         private static void MultiplicationAdd(BigInteger result, BigInteger longNumber, int index)
         {
-
             var isCarry = false;
             for (int i = 0; i < longNumber._digits.Count; i++)
             {
-                if (result._digits.Count == i + index) result._digits.Add(0);
+                if (result._digits.Count == i + index)
+					result._digits.Add(0);
                 var add = result._digits[i + index] + longNumber._digits[i] + (isCarry ? 1 : 0);
 
                 isCarry = (add >> 8) > 0;
@@ -203,7 +202,8 @@ namespace BigInteger
                 if (result._digits.Count > carryIndex)
                 {
                     result._digits[carryIndex] += 1;
-                    if (result._digits[carryIndex] != 0) isCarry = false;
+                    if (result._digits[carryIndex] != 0)
+						isCarry = false;
                     carryIndex++;
                 }
                 else
@@ -212,7 +212,6 @@ namespace BigInteger
                     isCarry = false;
                 }
             }
-
         }
 
         #endregion
@@ -258,7 +257,7 @@ namespace BigInteger
 
 
 			var lastIndex = result._digits.Count;
-			while (lastIndex != 0 && result._digits[--lastIndex] == 0);
+			while (lastIndex != 0 && result._digits[--lastIndex] == 0){}
 			result._digits.RemoveRange(lastIndex + 1, result._digits.Count - lastIndex - 1);
 			result._sign = dividend._sign != divider._sign;
 			return new Tuple<BigInteger, BigInteger>(result, residue);
@@ -308,7 +307,6 @@ namespace BigInteger
 			{
 				if (second._sign)
 					return AbsCompare(first, second) == -1;
-
 				return false;
 			}
 
@@ -332,19 +330,7 @@ namespace BigInteger
 		{
 			return (first == second) || (first > second);
 		}
-
-		public static bool operator ==(BigInteger first, BigInteger second)
-		{
-			if (first._sign != second._sign) return false;
-
-			return AbsCompare(first, second) == 0;
-		}
-
-		public static bool operator !=(BigInteger first, BigInteger second)
-		{
-			return !(first == second);
-		}
-
+		
         public static int AbsCompare(BigInteger first, BigInteger second)
         {
             if (first._digits.Count < second._digits.Count)
@@ -484,66 +470,18 @@ namespace BigInteger
 	    }
 
 		#endregion 
-
-		public static BigInteger Factorial(BigInteger number, out double time)
-		{
-            var sw = new Stopwatch();
-
-			BigInteger result = 1;
-			
-			sw.Start();
-			for (int i = 2; i <= number; ++i)
-				result *= i;
-			sw.Stop();
-			
-			time = sw.ElapsedMilliseconds;
-			return result;			
-		}
-		
-        public static BigInteger FactTree(BigInteger number, out double time)
-        {
-            time = 0;
-            if (number < 0)
-                return 0;
-            var sw = new Stopwatch();
-            sw.Start();
-            var result = ProdTree(2, number);
-            sw.Stop();
-            time = sw.ElapsedMilliseconds;
-            return result;
-        }
-        public static BigInteger ProdTree(BigInteger left, BigInteger right)
-        {
-            if (left > right)
-                return 1;
-            if (left == right)
-                return left;
-            if (right - left == 1)
-                return left * right;
-            BigInteger m = (left + right) / 2;
-            return ProdTree(left, m) * ProdTree(m+1, right);
-        }
-
-        public static BigInteger BinaryPower(BigInteger number, BigInteger pow)
-        {
-            BigInteger result = 1;
-            while (pow != 0)
-            {
-                if (pow % 2 == 1)
-                    result *= number;
-                number *= number;
-                pow /= 2;
-            }
-            return result;
-        }
     }
 
 	class Program
 	{		
 		static void Main()
 		{
-            Console.WriteLine(BigInteger.BinaryPower(3,4));        
-        }
+			BigInteger number = "12321321357236763462623463247246238463242649247629472649723642937462397462349723642937462934";
+			Console.WriteLine(number);
+			Console.WriteLine(BigInteger.ConverToBinary(number));
+			Console.WriteLine(BigInteger.ConverToOct(number));
+			Console.WriteLine(BigInteger.ConverToHex(number));
+		}
 
     }
 }
