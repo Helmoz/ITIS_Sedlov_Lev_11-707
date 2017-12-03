@@ -4,7 +4,12 @@ using System.Text;
 
 namespace BigInteger
 {
-    public class BigInteger
+	// 13
+	// Напишите программу перевода многозначного числа (с количеством знаков больше 20)
+	// в системы счисления с основанием два, восемь, шестнадцать.
+	// Седлов Лев 11-707
+	
+	public class BigInteger
     {
 		private bool _sign;
 
@@ -350,11 +355,11 @@ namespace BigInteger
             return 0;
         }
 
-        #endregion
+		#endregion
 
-        #region Convertors
+		#region Converters
 
-        public override string ToString()
+		public override string ToString()
         {
             var sb = new StringBuilder();
             var add = 0;
