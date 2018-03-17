@@ -10,11 +10,11 @@ namespace GraphicPic
 
             picture.Show();
 
-            picture.Insert(new Figure(1, 1, 1, 5, 5, 333333));
+            picture.Insert(new Figure(1, 2, 4, 5, 2, 333333));
 
             picture.Show();
 
-            var newPicture = picture.CommonWith(new Figure(1, 0, 3, 3, 0, 111111));
+            var newPicture = picture.CommonWith(new Figure(1, -2, 2, 2, -2, 111111));
             newPicture.Show();
 
             newPicture.Delete(1);

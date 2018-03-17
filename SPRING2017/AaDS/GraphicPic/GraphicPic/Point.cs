@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace GraphicPic
+﻿namespace GraphicPic
 {
     public class Point
     {

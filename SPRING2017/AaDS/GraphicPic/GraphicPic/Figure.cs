@@ -83,11 +83,22 @@ namespace GraphicPic
                     return true;
 
                 case Figures.Segment:
-                    return Math.Min(other.Top.X, other.Bottom.X) <= Math.Max(Top.X, Bottom.X) &&
-                           Math.Min(other.Top.Y, other.Bottom.Y) <= Math.Max(Top.Y, Bottom.Y) &&
-                           Math.Max(other.Top.X, other.Bottom.X) >= Math.Min(Top.X, Bottom.X) &&
-                           Math.Max(other.Top.Y, other.Bottom.Y) >= Math.Min(Top.Y, Bottom.Y);
+                    if (Top.Y >= other.Bottom.Y && Bottom.Y <= other.Top.Y)
+                    {
+                        double rigth = Bottom.X >= Top.X ? Bottom.X : Top.X;
+                        double left = Bottom.X >= Top.X ? Top.X : Bottom.X;
 
+                        if (rigth >= other.Top.X && left <= other.Bottom.X)
+                        {
+                            if ((other.Top.X - Bottom.X) * (Top.Y - Bottom.Y) - (other.Top.Y - Bottom.Y) * (Top.X - Bottom.X) <= 0 &&
+                                (other.Top.X - Bottom.X) * (Top.Y - Bottom.Y) - (other.Bottom.Y - Bottom.Y) * (Top.X - Bottom.X) <= 0 &&
+                                (other.Bottom.X - Bottom.X) * (Top.Y - Bottom.Y) - (other.Top.Y - Bottom.Y) * (Top.X - Bottom.X) <= 0 &&
+                                (other.Bottom.X - Bottom.X) * (Top.Y - Bottom.Y) - (other.Bottom.Y - Bottom.Y) * (Top.X - Bottom.X) <= 0)
+                                return false;
+                            return true;
+                        }
+                    }
+                    return false;
 
                 case Figures.Circle:
                     for (int i = other.Top.X; i <= other.Bottom.X; i++)
