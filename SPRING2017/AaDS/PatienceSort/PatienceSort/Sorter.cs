@@ -16,7 +16,7 @@ namespace PatienceSort
             for (int i = 10000; i <= 1000000; i += 10000)
             {
                 var list = new List<int>();
-                using (StreamReader sr = new StreamReader($"{directory}\\{i}.txt")) //string path - путь к файлу
+                using (StreamReader sr = new StreamReader($"{directory}\\{i}.txt"))
                     while (!sr.EndOfStream)
                         list.Add(int.Parse(sr.ReadLine()));
                 var sw = new Stopwatch();
