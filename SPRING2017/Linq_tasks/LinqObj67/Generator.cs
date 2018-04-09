@@ -4,7 +4,7 @@ using System.IO;
 
 namespace LinqObj67
 {
-    public class Student
+    public class Data
     {
         public string Surname { get; set; }
         public string Initials { get; set; }
@@ -12,7 +12,7 @@ namespace LinqObj67
         public int Grade { get; set; }
         public int Mark { get; set; }
         
-        public Student(string source)
+        public Data(string source)
         {
             var array = source.Split(' ');
             Grade = int.Parse(array[0]);
@@ -66,14 +66,14 @@ namespace LinqObj67
             }
         }
 
-        public static List<Student> GetStudents(int size)
+        public static List<Data> GetDatas(int size)
         {
             Generate(size);
             var directory = @"D:\ITIS\Sedlov_Lev_11-707\SPRING2017\Linq_tasks\Data";
 
             var list = new List<string>();
 
-            var students = new List<Student>();
+            var datas = new List<Data>();
 
             using (StreamReader sr = new StreamReader($"{directory}\\LinqObj67.txt"))
                 while (!sr.EndOfStream)
@@ -81,10 +81,10 @@ namespace LinqObj67
 
             foreach (var student in list)
             {
-                students.Add(new Student(student));
+                datas.Add(new Data(student));
             }
 
-            return students;
+            return datas;
         }
     }
 }

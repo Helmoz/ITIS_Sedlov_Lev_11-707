@@ -73,17 +73,17 @@ namespace LinqObj23
             var directory = @"D:\ITIS\Sedlov_Lev_11-707\SPRING2017\Linq_tasks\Data";
 
             var list = new List<string>();
-            var clients = new List<Enrollee>();
+            var enrollees = new List<Enrollee>();
             using (StreamReader sr = new StreamReader($"{directory}\\LinqObj23.txt"))
                 while (!sr.EndOfStream)
                     list.Add(sr.ReadLine());
 
             foreach (var client in list)
             {
-                clients.Add(new Enrollee(client));
+                enrollees.Add(new Enrollee(client));
             }
 
-            return clients;
+            return enrollees;
         }
     }
 }

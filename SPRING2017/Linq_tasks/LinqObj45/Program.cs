@@ -7,8 +7,9 @@ namespace LinqObj45
     {
         static void Main()
         {
-            var petrolStations = Generator.GetPetrolStations(10);
+            var petrolStations = Generator.GetPetrolStations(42);
 
+            petrolStations = petrolStations.OrderBy(x => x.Street).ToList();
 
             foreach (var item in petrolStations)
             {
@@ -17,16 +18,16 @@ namespace LinqObj45
             Console.WriteLine();
 
             var answer = petrolStations
-                .GroupBy(petrolStation => petrolStation.Street, (street, count) => new { Street = street, Count = count.Count()})
+                .GroupBy(petrolStation => petrolStation.Street, (street, stations) => new { Street = street, Count = stations.GroupBy(petrolStation=>petrolStation.Company).Count()})
                 .OrderBy(group => group.Street);
 
             foreach (var item in answer)
             {
-                Console.WriteLine($"{item.Street}\t{item.Count}");
+                Console.WriteLine($"{item.Street} {item.Count}");
             }
             Console.WriteLine();
 
-            
+
         }
     }
 }

@@ -5,9 +5,9 @@ namespace LinqObj67
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
-            var students = Generator.GetStudents(100);
+            var students = Generator.GetDatas(100);
 
             foreach (var item in students)
             {
