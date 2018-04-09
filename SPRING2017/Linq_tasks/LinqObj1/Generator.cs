@@ -14,7 +14,7 @@ namespace LinqObj1
         public FitnesClient(string source)
         {
             var tmp = source.Split(' ');
-            var array = Array.ConvertAll(tmp, input => Convert.ToInt32(input));
+            var array = Array.ConvertAll(tmp, Convert.ToInt32);
             Code = array[0];
             Year = array[1];
             Month = array[2];
@@ -65,7 +65,7 @@ namespace LinqObj1
             {
                 for (int j = 0; j < size; j++)
                 {
-                    sw.WriteLine($"{Codes[random.Next(0, Codes.Length - 1)]} {Years[random.Next(0, Years.Length - 1)]} {Moths[random.Next(0, Moths.Length - 1)]} {random.Next(1, 24)}");
+                    sw.WriteLine($"{Codes[random.Next(0, Codes.Length)]} {Years[random.Next(0, Years.Length)]} {Moths[random.Next(0, Moths.Length)]} {random.Next(1, 24)}");
                 }
             }
         }

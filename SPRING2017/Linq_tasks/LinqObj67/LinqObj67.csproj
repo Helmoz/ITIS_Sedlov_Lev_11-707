@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{112FAC05-F448-48EB-A0ED-F1BB41980391}</ProjectGuid>
+    <ProjectGuid>{A3FF8206-FAD2-4089-9508-0643A14FCAF1}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>PatienceSort</RootNamespace>
-    <AssemblyName>PatienceSort</AssemblyName>
+    <RootNamespace>LinqObj67</RootNamespace>
+    <AssemblyName>LinqObj67</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -42,12 +42,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Generation.cs" />
-    <Compile Include="PatienceSort.cs" />
-    <Compile Include="PriorityQueue.cs" />
+    <Compile Include="Generator.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Sorter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -1,0 +1,10 @@
+Harrison F.C 47 31 82 24
+Hodges D.C 46 24 47 32
+Russel A.C 54 75 98 34
+Attwood A.A 92 54 62 22
+Hodges P.A 91 31 83 20
+Lewin A.B 73 60 22 34
+Russel A.A 77 41 29 30
+Becker A.C 23 46 8 22
+Carter H.Y 88 8 48 44
+Ramacey A.D 69 15 92 44

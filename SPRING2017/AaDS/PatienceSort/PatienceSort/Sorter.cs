@@ -24,8 +24,8 @@ namespace PatienceSort
                 PatienceSort<int>.Sort(list);
                 sw.Stop();
                 //Console.WriteLine($"{list.Count} {Check(list)} {PatienceSort<int>.Iterations} {sw.ElapsedMilliseconds}");
-                //Console.WriteLine($"{PatienceSort<int>.Iterations}");
-                Console.WriteLine($"{sw.ElapsedMilliseconds}");
+                Console.WriteLine($"{PatienceSort<int>.Iterations}");
+                //Console.WriteLine($"{sw.ElapsedMilliseconds}");
             }
         }
 

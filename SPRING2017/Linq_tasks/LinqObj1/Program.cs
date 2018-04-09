@@ -13,15 +13,10 @@ namespace LinqObj1
             {
                 Console.WriteLine($"{client} ");
             }
-
-            var sorted = source.OrderBy(client => client.Duration);
-
-            var minimal = sorted
-                .TakeWhile(client => client.Duration == sorted.First().Duration)
-                .Last();
-
             Console.WriteLine();
-            
+
+            var minimal = source.Last(client => client.Duration == source.Min(clien => clien.Duration));
+
             Console.WriteLine($"Duration: {minimal.Duration} Year: {minimal.Year} Month: {minimal.Month}");
         }
     }

@@ -33,7 +33,7 @@ namespace LinqObj12
 
         public static int[] Codes { get; }
 
-        public static int[] Moths { get; }
+        public static int[] Months { get; }
 
         static Generator()
         {
@@ -49,10 +49,10 @@ namespace LinqObj12
                 Codes[i] = code;
             }
 
-            Moths = new int[12];
-            for (int i = 0; i < Moths.Length; i++)
+            Months = new int[12];
+            for (int i = 0; i < Months.Length; i++)
             {
-                Moths[i] = i + 1;
+                Months[i] = i + 1;
             }
         }
 
@@ -65,7 +65,7 @@ namespace LinqObj12
             {
                 for (int j = 0; j < size; j++)
                 {
-                    sw.WriteLine($"{Codes[random.Next(0, Codes.Length - 1)]} {Years[random.Next(0, Years.Length - 1)]} {Moths[random.Next(0, Moths.Length - 1)]} {random.Next(1, 24)}");
+                    sw.WriteLine($"{Codes[random.Next(0, Codes.Length)]} {Years[random.Next(0, Years.Length)]} {Months[random.Next(0, Months.Length)]} {random.Next(1, 24)}");
                 }
             }
         }

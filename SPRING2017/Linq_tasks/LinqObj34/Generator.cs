@@ -56,7 +56,7 @@ namespace LinqObj34
             {
                 for (int j = 0; j < 144; j++)
                 {
-                    sw.WriteLine($"{GetRandomDouble(0, 1500, random)} {j+1} {Surnames[random.Next(0, Surnames.Length - 1)]}");
+                    sw.WriteLine($"{GetRandomDouble(0, 1500, random)} {j+1} {Surnames[random.Next(0, Surnames.Length)]}");
                 }
             }
         }

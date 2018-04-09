@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace LinqObj12
@@ -8,57 +7,36 @@ namespace LinqObj12
     {
         static void Main()
         {
-            var cLients = Generator.GetCLients(20);
+            var clients = Generator.GetCLients(20);
 
-            double p = (double)new Random().Next(11, 51)/100;
-            
-            var attendance = new Dictionary<int, int>();
+            double p = (double)new Random().Next(10, 50)/100;
 
-            cLients = cLients.OrderBy(client => client.Year).ToList();
-            
-            foreach (var client in cLients)
+            clients = clients.OrderBy(client => client.Year).ToList();
+
+            foreach (var client in clients)
             {
-                Console.WriteLine($"{client} ");
+                Console.WriteLine(client);
             }
-
             Console.WriteLine();
+
             Console.WriteLine(p);
             Console.WriteLine();
-            
-            foreach (var year in cLients.GroupBy(client => client.Year))
-            {
-                double attendancePerYear= 0;
 
-                var ammountMonthPerYear = 0;
-                
-                foreach (var fitnesClient in year)
+            var answer = clients
+                .GroupBy(client => client.Year,
+                (year, fitnesClients) => new
                 {
-                    attendancePerYear += fitnesClient.Duration;
-                }
-                
-                foreach (var month in year.GroupBy(client => client.Month))
-                {
-                    double attendancePerMonth = 0;
+                    Year = year,
+                    Count = fitnesClients.Count(client => (double)client.Duration / fitnesClients.Sum(fitnesClient => fitnesClient.Duration) > p)
+                })
+                .OrderByDescending(client => client.Count)
+                .ThenBy(client => client.Year);
 
-                    foreach (var fitnesClient in month)
-                    {
-                        attendancePerMonth += fitnesClient.Duration;
-                    }
-
-                    if (attendancePerMonth / attendancePerYear > p)
-                        ammountMonthPerYear++;
-                }
-
-                attendance.Add(year.Key, ammountMonthPerYear);
-
-            }
-           
-            foreach (var item in attendance.OrderByDescending(pair => pair.Value).ThenBy(pair => pair.Key))
+            foreach (var item in answer)
             {
-                Console.WriteLine($"{item.Value} {item.Key}");
+                Console.WriteLine(item);
             }
-
-
+            Console.WriteLine();
         }
     }
 }

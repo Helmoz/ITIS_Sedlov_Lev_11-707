@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace LinqObj23
@@ -15,21 +14,21 @@ namespace LinqObj23
                 Console.WriteLine($"{enrollee}");
             }
             Console.WriteLine();
+            
+            var answer = enrollees.GroupBy(enrollee => new { enrollee.Year, enrollee.School}, (key, ammount) => new
+            {
+                Key = key,
+                Ammount = ammount.Count()
+            })
+            .OrderByDescending(item => item.Key.Year)
+            .ThenBy(item => item.Key.School);
 
-            var listOfEnrollees = new Dictionary<Tuple<int,int>, int>();
-            
-            foreach (var year in enrollees.GroupBy(item => item.Year))
+
+            foreach (var item in answer)
             {
-                foreach (var school in year.GroupBy(item => item.School))
-                {
-                    listOfEnrollees.Add(Tuple.Create(year.Key, school.Key), school.Count());
-                }
+                Console.WriteLine($"Year: {item.Key.Year} School: {item.Key.School}\tAmmount: {item.Ammount}");
             }
-            
-            foreach (var enrollee in listOfEnrollees.OrderByDescending(pair => pair.Key.Item1).ThenBy(pair => pair.Key.Item2))
-            {
-                Console.WriteLine(enrollee);
-            }
+            Console.WriteLine();
         }
     }
 }

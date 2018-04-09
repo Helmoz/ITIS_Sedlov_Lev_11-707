@@ -62,7 +62,7 @@ namespace LinqObj23
             {
                 for (int j = 0; j < size; j++)
                 {
-                    sw.WriteLine($"{Surnames[random.Next(0, Surnames.Length - 1)]} {Years[random.Next(0, Years.Length - 1)]} {Schools[random.Next(0, Schools.Length - 1)]}");
+                    sw.WriteLine($"{Surnames[random.Next(0, Surnames.Length)]} {Years[random.Next(0, Years.Length)]} {Schools[random.Next(0, Schools.Length)]}");
                 }
             }
         }

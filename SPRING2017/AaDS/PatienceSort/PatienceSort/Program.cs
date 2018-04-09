@@ -5,7 +5,7 @@ namespace PatienceSort
     {
         static void Main()
         {
-            //Generation.Generator();
+            Generation.Generator();
             Sorter.Sort();
         }
     }
