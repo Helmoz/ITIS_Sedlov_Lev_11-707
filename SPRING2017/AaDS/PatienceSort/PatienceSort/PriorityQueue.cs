@@ -58,6 +58,7 @@ namespace PatienceSort
             var tmp = list[i];
             list[i] = list[j];
             list[j] = tmp;
+            PatienceSort<int>.Iterations++;
         }
 
     }

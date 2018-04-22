@@ -1,0 +1,10 @@
+DG527-5795 Denmark Fifth
+AA322-1337 Russia First
+DC341-2436 USA Third
+RT345-7235 Denmark Second
+JK839-2342 France First
+ET165-1675 USA First
+DC341-2436 Denmark Third
+AA322-1337 GB First
+JK839-2342 Germany Fifth
+DC341-2436 Denmark First

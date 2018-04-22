@@ -7,7 +7,7 @@ namespace PatienceSort
     {
         public static List<Stack<T>> Piles = new List<Stack<T>>();
 
-        public static int Iterations { get; set; }
+        public static long Iterations { get; set; }
 
         public static void Sort(List<T> list)
         {
@@ -23,6 +23,8 @@ namespace PatienceSort
                 }
                 else
                     Piles[j].Push(item);
+
+                Iterations++;
             }
 
             PriorityQueue<T> priorityQueue = new PriorityQueue<T>(Piles);
@@ -34,7 +36,6 @@ namespace PatienceSort
                 list[count++] = priorityQueue.Min;
                 Iterations++;
             }
-            Iterations += list.Count;
         }
 
         private static int BinarySearch(T item)
