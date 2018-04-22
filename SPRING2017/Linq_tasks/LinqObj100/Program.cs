@@ -16,25 +16,19 @@ namespace LinqObj100
             var orders = Generator.GetProductsFrom(10);
 
             foreach (var item in prices)
-            {
                 Console.WriteLine(item);
-            }
-            Console.WriteLine();
-            foreach (var item in goods)
-            {
-                Console.WriteLine(item);
-            }
-            Console.WriteLine();
-            foreach (var item in customers)
-            {
-                Console.WriteLine(item);
-            }
             Console.WriteLine();
 
-            foreach (var item in orders)
-            {
+            foreach (var item in goods)
                 Console.WriteLine(item);
-            }
+            Console.WriteLine();
+
+            foreach (var item in customers)
+                Console.WriteLine(item);
+            Console.WriteLine();
+            
+            foreach (var item in orders)
+                Console.WriteLine(item);
             Console.WriteLine();
 
             var result = goods
@@ -54,11 +48,8 @@ namespace LinqObj100
                 .SelectMany(x => x.Items);
 
             foreach (var item in result)
-            {
                 Console.WriteLine(item);
-            }
             Console.WriteLine();
-
         }
     }
 }

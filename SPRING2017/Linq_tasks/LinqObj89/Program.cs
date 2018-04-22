@@ -13,21 +13,16 @@ namespace LinqObj89
 
             var customers = Generator.GetCustomers(10);
 
-
             foreach (var item in products)
-            {
                 Console.WriteLine(item);
-            }
             Console.WriteLine();
+
             foreach (var item in purchases)
-            {
                 Console.WriteLine(item);
-            }
             Console.WriteLine();
+
             foreach (var item in customers)
-            {
                 Console.WriteLine(item);
-            }
             Console.WriteLine();
 
 
@@ -42,17 +37,10 @@ namespace LinqObj89
                     })
                 .OrderBy(i=>i.name)
                 .ThenBy(i=>i.year.ps.p.Code);
-            
-
 
             foreach (var item in answer)
-            {
                 Console.WriteLine($"{item.name} {item.year.ps.p.Code} {item.year.ps.Year} {item.total}");
-            }
             Console.WriteLine();
-
-
-
         }
     }
 }
