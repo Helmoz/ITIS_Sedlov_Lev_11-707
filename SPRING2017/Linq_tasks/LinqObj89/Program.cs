@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using System.Runtime.Remoting.Metadata.W3cXsd2001;
 
 namespace LinqObj89
 {
@@ -28,39 +27,19 @@ namespace LinqObj89
 
 
             var answer = purchases
-                .Join(customers, x => x.Code, x => x.Code, (x, y) => new
-                {
-                    x.Code,
-                    x.VendorCode,
-                    x.Name,
-                    y.Year
-                })
-                .Join(products, x => new {x.VendorCode, x.Name}, x => new {x.VendorCode, x.Name}, (x, y) => new
-                {
-                    x.Code,
-                    x.VendorCode,
-                    x.Name,
-                    x.Year,
-                    y.Price
-                })
-                .GroupBy(x => x.Name, (Name, purchs) => new
-                {
-                    Name,
-                    MinYear = purchs.Where(x => x.Year == purchs.Min(y => y.Year))
-                })
-                .Select(x => new
-                {
-                    x.Name,
-                    x.MinYear.First().Code,
-                    x.MinYear.First().Year,
-                    Total = x.MinYear.Sum(y => y.Price)
-                })
-                .OrderBy(x => x.Name)
-                .ThenBy(x => x.Code);
-                
+                .Join(customers, p => p.Code, c => c.Code, (p, c) => new { p, c.Year })
+                .Join(products, i=> new {i.p.VendorCode, i.p.Name}, p => new { p.VendorCode, p.Name}, (ps, pr) => new { ps, pr.Price })
+                .GroupBy(arg=>arg.ps.p.Name, (name, year) => new
+                    {
+                        name,
+                        year = year.First(x => x.ps.Year == year.Min(y=>y.ps.Year)),
+                        total = year.Sum(x=>x.Price)
+                    })
+                .OrderBy(i=>i.name)
+                .ThenBy(i=>i.year.ps.p.Code);
 
             foreach (var item in answer)
-                Console.WriteLine($"{item.Name} {item.Code} {item.Year} {item.Total}");
+                Console.WriteLine($"{item.name} {item.year.ps.p.Code} {item.year.ps.Year} {item.total}");
             Console.WriteLine();
         }
     }

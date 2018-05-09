@@ -55,7 +55,7 @@ namespace LinqObj45
         public static void Generate(int size)
         {
             var random = new Random();
-            var directory = @"C:\Users\petru\Desktop\Data";
+            var directory = @"D:\ITIS\Sedlov_Lev_11-707\SPRING2017\Linq_tasks\Data";
             var dict = new List<Tuple<string, string, int>>();
 
             using (StreamWriter sw = new StreamWriter($"{directory}\\LinqObj45.txt"))
@@ -88,7 +88,7 @@ namespace LinqObj45
         public static List<PetrolStation> GetPetrolStations(int size)
         {
             Generate(size);
-            var directory = @"C:\Users\petru\Desktop\Data";
+            var directory = @"D:\ITIS\Sedlov_Lev_11-707\SPRING2017\Linq_tasks\Data";
 
             var list = new List<string>();
 
