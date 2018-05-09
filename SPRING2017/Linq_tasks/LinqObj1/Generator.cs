@@ -59,7 +59,7 @@ namespace LinqObj1
         public static void Generate(int size)
         {
             var random = new Random();
-            var directory = @"D:\ITIS\Sedlov_Lev_11-707\SPRING2017\Linq_tasks\Data";
+            var directory = @"C:\Users\petru\Desktop\Data";
 
             using (StreamWriter sw = new StreamWriter($"{directory}\\LinqObj1.txt"))
             {
@@ -73,7 +73,7 @@ namespace LinqObj1
         public static List<FitnesClient> GetCLients(int size)
         {
             Generate(size);
-            var directory = @"D:\ITIS\Sedlov_Lev_11-707\SPRING2017\Linq_tasks\Data";
+            var directory = @"C:\Users\petru\Desktop\Data";
 
             var list = new List<string>();
             var clients = new List<FitnesClient>();

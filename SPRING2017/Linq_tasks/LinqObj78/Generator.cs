@@ -84,7 +84,7 @@ namespace LinqObj78
 
         public static List<Product> GetProducts(int size)
         {
-            var directory = @"D:\ITIS\Sedlov_Lev_11-707\SPRING2017\Linq_tasks\Data";
+            var directory = @"C:\Repository\Helmoz\Sedlov_Lev_11-707\SPRING2017\Linq_tasks\Data";
 
             var list = new List<string>();
 
@@ -104,7 +104,7 @@ namespace LinqObj78
 
         public static List<Purchases> GetPurchases(int size)
         {
-            var directory = @"D:\ITIS\Sedlov_Lev_11-707\SPRING2017\Linq_tasks\Data";
+            var directory = @"C:\Repository\Helmoz\Sedlov_Lev_11-707\SPRING2017\Linq_tasks\Data";
 
             var list = new List<string>();
 

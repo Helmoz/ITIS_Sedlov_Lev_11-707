@@ -50,7 +50,7 @@ namespace LinqObj34
         public static void Generate()
         {
             var random = new Random();
-            var directory = @"D:\ITIS\Sedlov_Lev_11-707\SPRING2017\Linq_tasks\Data";
+            var directory = @"C:\Users\petru\Desktop\Data";
 
             using (StreamWriter sw = new StreamWriter($"{directory}\\LinqObj34.txt"))
             {
@@ -64,7 +64,7 @@ namespace LinqObj34
         public static List<Inhabitant> GetInhabitants()
         {
             Generate();
-            var directory = @"D:\ITIS\Sedlov_Lev_11-707\SPRING2017\Linq_tasks\Data";
+            var directory = @"C:\Users\petru\Desktop\Data";
 
             var list = new List<string>();
 
